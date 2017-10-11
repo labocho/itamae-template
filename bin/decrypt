@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require "tmpdir"
+require "open3"
+
+PASSWORD = ENV["ENCRYPTION_KEY"]
+
+Dir.mktmpdir do |dir|
+  src = "#{dir}/src"
+  dst = "#{dir}/dst"
+  File.write(src, ARGF.read)
+
+  o, e, s = Open3.capture3("bin/reversible_cryptography", "decrypt", "--password=#{PASSWORD}", "--src-file=#{src}", "--dst-file=#{dst}")
+  $stderr.puts o if o.strip.size > 0
+  $stderr.puts e if e.strip.size > 0
+  exit s.to_i unless s.success?
+
+  print File.read(dst)
+end
