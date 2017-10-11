@@ -34,7 +34,7 @@ end
 config = Tempfile.new('', Dir.tmpdir)
 config.write(<<-SSH_CONFIG
 Host #{host}
-User chef
+User itamae
 HostName #{node["hostname"]}
 SSH_CONFIG
 )

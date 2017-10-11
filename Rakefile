@@ -14,7 +14,7 @@ namespace :cook do
         node_file = "#{tmpdir}/node.json"
         File.write(node_file, (config["attributes"] || {}).to_json)
 
-        sh "bin/itamae", "ssh", "--node-json=#{node_file}", "--host=#{config["hostname"]}", "--user=chef", *config["recipes"]
+        sh "bin/itamae", "ssh", "--node-json=#{node_file}", "--host=#{config["hostname"]}", "--user=itamae", *config["recipes"]
       end
     end
   end
@@ -28,7 +28,7 @@ namespace :"dry-run" do
         node_file = "#{tmpdir}/node.json"
         File.write(node_file, (config["attributes"] || {}).to_json)
 
-        sh "bin/itamae", "ssh", "--dry-run", "--node-json=#{node_file}", "--host=#{config["hostname"]}", "--user=chef", *config["recipes"]
+        sh "bin/itamae", "ssh", "--dry-run", "--node-json=#{node_file}", "--host=#{config["hostname"]}", "--user=itamae", *config["recipes"]
       end
     end
   end
@@ -38,7 +38,7 @@ namespace :ssh do
   NODES.each do |node, config|
     desc "`ssh` for #{node}"
     task node do
-      exec "ssh", "chef@#{config["hostname"]}"
+      exec "ssh", "itamae@#{config["hostname"]}"
     end
   end
 end
