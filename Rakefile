@@ -34,6 +34,14 @@ namespace :"dry-run" do
   end
 end
 
+namespace :nodes do
+  desc "Print decrypted nodes.yml"
+  task :decrypt do
+    require_relative "lib/decrypt.rb"
+    puts decrypt_attributes(NODES).to_yaml
+  end
+end
+
 namespace :ssh do
   NODES.each do |node, config|
     desc "`ssh` for #{node}"
