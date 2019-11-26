@@ -1,8 +1,18 @@
 #!/usr/bin/env ruby
 require "tmpdir"
 require "open3"
+require "optparse"
 
 PASSWORD = ENV["ENCRYPTION_KEY"]
+
+options = {
+  remove_trailing_new_line: false,
+}
+
+OptionParser.new do |o|
+  o.on("-n") { options[:remove_trailing_new_line] = true }
+  o.parse!(ARGV)
+end
 
 Dir.mktmpdir do |dir|
   src = "#{dir}/src"
@@ -14,5 +24,7 @@ Dir.mktmpdir do |dir|
   $stderr.puts e if e.strip.size > 0
   exit s.to_i unless s.success?
 
-  print File.read(dst)
+  encrypted = File.read(dst)
+  encrypted.gsub!(/(\r\n|\r|\n)/, "") if options[:remove_trailing_new_line]
+  print encrypted
 end
