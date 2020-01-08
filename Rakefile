@@ -1,4 +1,4 @@
-require "yaml"
+require_relative "lib/yaml"
 require "tmpdir"
 require "json"
 
