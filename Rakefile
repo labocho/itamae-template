@@ -13,8 +13,9 @@ namespace :cook do
       Dir.mktmpdir do |tmpdir|
         node_file = "#{tmpdir}/node.json"
         File.write(node_file, (config["attributes"] || {}).to_json)
+        log_level = ENV["DEBUG"] ? "debug" : "info"
 
-        sh "bin/itamae", "ssh", "--node-json=#{node_file}", "--host=#{config["hostname"]}", "--user=#{config["user"] || "itamae"}", *config["recipes"]
+        sh "bin/itamae", "ssh", "--log-level=#{log_level}", "--node-json=#{node_file}", "--host=#{config["hostname"]}", "--user=#{config["user"] || "itamae"}", *config["recipes"]
       end
     end
   end
