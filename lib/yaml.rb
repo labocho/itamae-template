@@ -53,7 +53,7 @@ YAML.add_domain_type("", "inherit") do |type, options|
     raise "File not found for !inherit: #{options["from"].inspect}"
   end
 
-  data = YAML.load_file(options["from"])
+  data = YAML.load_file(options["from"], aliases: true)
   data = data.dig(*options["key"]) if options["key"]
   data.deep_merge!(options["override"]) if options["override"]
   YAML::Replace.expand_replace!(data)
