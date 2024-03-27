@@ -1,0 +1,9 @@
+hostname: example.local
+vagrant: example
+recipes:
+  - roles/example.rb
+attributes:
+  example:
+    foo: bar
+    # secret_key:
+    #   _encrypted: # output from echo SECRET | bin/encrypt

@@ -1,10 +1,2 @@
-# example-node:
-#   hostname: example.local
-#   vagrant: example
-#   recipes:
-#     - roles/example.rb
-#   attributes:
-#     example:
-#       secret_key:
-#         _encrypted: # output from echo SECRET | bin/encrypt
-{}
+example-node: !inherit
+  from: nodes/example-node.yml

@@ -13,8 +13,7 @@
 # keys を省略した場合はルート
 # override は deep_merge するが !replace がついている値は置き換える
 
-require "active_support/core_ext/hash"
-require "active_support/core_ext/array"
+require "active_support"
 require "yaml"
 
 module YAML
