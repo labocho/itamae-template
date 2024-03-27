@@ -39,6 +39,12 @@ namespace :nodes do
   desc "Print decrypted nodes.yml"
   task :decrypt do
     require_relative "lib/decrypt.rb"
+
+    decrypyted = decrypt_attributes(NODES)
+    if ENV["NODE"]
+      decrypted = decrypyted.fetch(ENV["NODE"])
+    end
+
     puts decrypt_attributes(NODES).to_yaml
   end
 end
